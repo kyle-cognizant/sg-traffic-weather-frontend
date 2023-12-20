@@ -113,6 +113,7 @@ const App: FC = () => {
   }
 
   useEffect(() => {
+    document.title = "🇸🇬 SG Traffic/Weather"
     loadGlobalRecentSearches()
     loadMyRecentSearches()
   }, [])
