@@ -45,8 +45,8 @@ const CamerasListItem: FC<Props> = ({
                 <Title order={1} size="h6">{area_name}</Title>
                 <Text c="dimmed" size="xs">#{camera_id}</Text>
               </Flex>
-              <Flex gap={4} ml={-14}>
-              <Text size="xs" className="grayscale">
+              <Flex gap={4} ml={-16}>
+              <Text size="xs">
               📍 
               </Text>
               <Text size="xs" c="dimmed">

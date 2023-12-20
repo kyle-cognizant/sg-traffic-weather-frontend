@@ -11,7 +11,7 @@ const App: FC = () => {
   const [isFetchingCameras, setIsFetchingCameras] = useState<boolean>(false);
 
   const onSearch = async (datetime: Date | undefined) => {
-    if (!datetime) return;
+    if (!datetime || isFetchingCameras) return;
 
     try {
       setIsFetchingCameras(true)
@@ -31,11 +31,11 @@ const App: FC = () => {
   return (
     <AppLayout>
       <Container fluid p={0}>
-        <Container size={320} p={0}>
+        <Container size={320} p={0} mt="md">
           <DatetimeForm onSubmit={onSearch} />
         </Container>
 
-        <Box mt="lg">
+        <Box mt="xl">
           {isFetchingCameras ? (
             <Flex justify="center" mt="xl" pt="xl">
               <Loader size="xl" />

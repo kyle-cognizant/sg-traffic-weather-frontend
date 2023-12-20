@@ -1,4 +1,4 @@
-import { Box, Card, Container, Grid, Stack, Text } from "@mantine/core"
+import { Box, Card, Container, Grid, Stack, Text, Title } from "@mantine/core"
 import { FC } from "react"
 import type { Camera } from "../../types.d.ts"
 import CamerasListItem from "./CamerasListItem.tsx"
@@ -24,6 +24,12 @@ const CamerasList: FC<Props> = ({
           </Container>
         ) : (
             <Container size="sm">
+              <Title order={2} size="h4" className="text-center">
+                Found {cameras.length} Traffic Cameras
+              </Title>
+              <Text c="dimmed" size="sm" color="dimmed" className="text-center" mb="md">
+                Select a camera to view more details
+              </Text>
               <Grid component="ul" gutter="xs">
                 {cameras.map(camera =>(
                   <Grid.Col span={{ base: 12, xs: 6}} component="li">
