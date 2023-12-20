@@ -1,17 +1,21 @@
-import { Box, Card, Container, Divider, Flex, Grid, Loader, ScrollArea, Text } from "@mantine/core"
+import { Box, Card, Container, Divider, Drawer, Flex, Grid, Image, Loader, ScrollArea, Stack, Table, Text, Title } from "@mantine/core"
 import { FC, useEffect, useState } from "react"
-import type { Camera, SearchTransaction } from "../types.d.ts"
+import type { Camera, CameraDetails, SearchTransaction } from "../types.d.ts"
 import AppLayout from "./components/AppLayout"
 import CamerasList from "./components/CamerasList.tsx"
 import DatetimeForm from "./components/DatetimeForm"
 import RecentSearches from "./components/RecentSearches.tsx"
 import { fetchCameraDetails, fetchCameras, fetchGlobalRecentSearches } from "./services/backend/api.ts"
+import { useDisclosure } from "@mantine/hooks"
 
 const recentSearchesLocalStorageKey = 'sg-traffic-weather.my-recent-searches'
 
 const App: FC = () => {
+  const [drawerOpened, { open: openDrawer, close: closeDrawer }] = useDisclosure(false);
+
   // TODO: Refactor using react-query
-  const [selectedDatetime, setSelectedDatetime] = useState<Date|undefined>(undefined)
+  const [selectedDatetime, setSelectedDatetime] = useState<Date | undefined>(undefined)
+  const [selectedCameraDetails, setSelectedCameraDetails] = useState<CameraDetails | null>(null)
   const [cameras, setCameras] = useState<Camera[]>([])
   const [globalRecentSearches, setGlobalRecentSearches] = useState<SearchTransaction[]>([])
   const [myRecentSearches, setMyRecentSearches] = useState<SearchTransaction[]>([])
@@ -52,6 +56,7 @@ const App: FC = () => {
     }
   }
 
+  // TODO: Refactor into hook
   const loadMyRecentSearches = () => {
     try {
       const data = localStorage.getItem(recentSearchesLocalStorageKey);
@@ -74,7 +79,7 @@ const App: FC = () => {
   const saveMyRecentSearch = (newSearch: SearchTransaction) => {
     const currentData = localStorage.getItem(recentSearchesLocalStorageKey);
     const currentSearches = currentData ? JSON.parse(currentData) : []
-    
+
     // TODO: Implement rolling array to limit to 10 items
     localStorage.setItem(recentSearchesLocalStorageKey, JSON.stringify([
       newSearch,
@@ -91,6 +96,8 @@ const App: FC = () => {
       const cameraDetails = await fetchCameraDetails(+new Date(selectedDatetime), camera.camera_id)
 
       if (!cameraDetails) return;
+
+      setSelectedCameraDetails(cameraDetails)
 
       // TODO: Refactor input types for saveMyRecentSearch
       saveMyRecentSearch({
@@ -111,6 +118,10 @@ const App: FC = () => {
       console.error(error)
     }
   }
+
+  useEffect(() => {
+    if (!!selectedCameraDetails) openDrawer()
+  }, [selectedCameraDetails])
 
   useEffect(() => {
     document.title = "🇸🇬 SG Traffic/Weather"
@@ -165,6 +176,27 @@ const App: FC = () => {
           </Grid>
         </Container>
       </Container>
+
+      {/* TODO: Refactor into component */}
+      <Drawer opened={drawerOpened} onClose={closeDrawer} position="right">
+        <Container>
+          <Title size="h3">Traffic Camera Details</Title>
+          <Divider my="lg" />
+          {selectedCameraDetails ? (
+            <Stack gap={4}>
+              <Image mb="lg" src={selectedCameraDetails.camera.image} w={selectedCameraDetails.camera.image_metadata.width} h={selectedCameraDetails.camera.image_metadata.height} alt="" />
+              <Text>Weather Forecast: {selectedCameraDetails.weather_forecast}</Text>
+              <Text>Timestamp: {selectedCameraDetails.camera.timestamp.toString()}</Text>
+              <Text>Camera ID: {selectedCameraDetails.camera.camera_id}</Text>
+              <Text>Area: {selectedCameraDetails.camera.area_name}</Text>
+              <Text>Latitude: {selectedCameraDetails.camera.location.latitude}</Text>
+              <Text>Longitude: {selectedCameraDetails.camera.location.longitude}</Text>
+            </Stack>
+          ) : (
+            <Text>Select a camera first.</Text>
+          )}
+        </Container>
+      </Drawer>
     </AppLayout>
   )
 }
