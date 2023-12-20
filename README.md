@@ -30,6 +30,7 @@ $ npm run build && npm run preview
 - No network calls are made directly to data.gov.sg. Instead, we fetch data from our API.
 
 ### Possible Enhancements
+- Add error handling when API calls fail
 - Use Zustand or React Context for state management. This will reduce prop drilling.
 - Use react-query to abstract away state, logic, loading, etc for data fetching.
 - Show recent searches in real-time by subscribing to Server-Sent Events from our backend.
