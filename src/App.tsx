@@ -1,29 +1,24 @@
-import { Card, Code, Container, Divider, Flex, Grid, Image, Stack, Text, Title } from "@mantine/core"
+import { Container } from "@mantine/core"
 import { FC, useState } from "react"
 import type { Camera } from "../types.d.ts"
 import AppLayout from "./components/AppLayout"
-import DatetimeForm from "./components/DatetimeForm"
 import CamerasList from "./components/CamerasList.tsx"
+import DatetimeForm from "./components/DatetimeForm"
+import { fetchCameras } from "./services/backend/api.ts"
 
 const App: FC = () => {
   const [cameras, setCameras] = useState<Camera[]>([])
 
   const onSearch = async (datetime: Date | undefined) => {
     if (!datetime) return;
-    const cameras = await fetchCameras(+datetime);
 
-    if (cameras) {
-      setCameras(cameras)
-    } else {
-      console.log('error fetching cameras')
-    }
-  }
-
-  const fetchCameras = async (timestamp: number): Promise<Camera[] | undefined> => {
     try {
-      const response = await fetch(`http://localhost:3000/cameras?timestamp=${timestamp}`)
-      const data = await response.json()
-      return data
+      const cameras = await fetchCameras(+datetime);
+      if (cameras) {
+        setCameras(cameras)
+      } else {
+        console.error('No cameras found')
+      }
     } catch (error) {
       console.error(error)
     }
