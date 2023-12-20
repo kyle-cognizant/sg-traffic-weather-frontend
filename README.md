@@ -32,6 +32,7 @@ $ npm run build && npm run preview
 ### Possible Enhancements
 - Add error handling when API calls fail
 - Use Zustand or React Context for state management. This will reduce prop drilling.
+- Add tests with jest and playwright
 - Use react-query to abstract away state, logic, loading, etc for data fetching.
 - Show recent searches in real-time by subscribing to Server-Sent Events from our backend.
 - Add sorting and filtering
