@@ -1,4 +1,4 @@
-import { Box, Container } from "@mantine/core"
+import { Box, Center, Container, Flex, Loader } from "@mantine/core"
 import { FC, useState } from "react"
 import type { Camera } from "../types.d.ts"
 import AppLayout from "./components/AppLayout"
@@ -8,11 +8,13 @@ import { fetchCameras } from "./services/backend/api.ts"
 
 const App: FC = () => {
   const [cameras, setCameras] = useState<Camera[]>([])
+  const [isFetchingCameras, setIsFetchingCameras] = useState<boolean>(false);
 
   const onSearch = async (datetime: Date | undefined) => {
     if (!datetime) return;
 
     try {
+      setIsFetchingCameras(true)
       const cameras = await fetchCameras(+datetime);
       if (cameras) {
         setCameras(cameras)
@@ -21,6 +23,8 @@ const App: FC = () => {
       }
     } catch (error) {
       console.error(error)
+    } finally {
+      setIsFetchingCameras(false)
     }
   }
 
@@ -32,7 +36,13 @@ const App: FC = () => {
         </Container>
 
         <Box mt="lg">
-          <CamerasList cameras={cameras} />
+          {isFetchingCameras ? (
+            <Flex justify="center" mt="xl" pt="xl">
+              <Loader size="xl" />
+            </Flex>
+          ) : (
+            <CamerasList cameras={cameras} />
+          )}
         </Box>
       </Container>
     </AppLayout>
