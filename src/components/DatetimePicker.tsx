@@ -1,7 +1,7 @@
+import "flatpickr/dist/themes/airbnb.css";
+import { BaseOptions } from 'flatpickr/dist/types/options';
 import { FC } from 'react';
 import Flatpickr from "react-flatpickr";
-import { BaseOptions } from 'flatpickr/dist/types/options';
-import "flatpickr/dist/themes/airbnb.css";
 
 type Props = {
   value: Date | undefined

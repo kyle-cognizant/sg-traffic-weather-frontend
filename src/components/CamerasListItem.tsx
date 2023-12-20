@@ -1,5 +1,5 @@
 import { Box, Card, Flex, Grid, Image, Text, Title } from "@mantine/core"
-import { FC, MouseEventHandler } from "react"
+import { FC } from "react"
 import type { Camera } from "../../types.d.ts"
 
 type Props = {

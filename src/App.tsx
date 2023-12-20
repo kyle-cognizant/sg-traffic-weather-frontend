@@ -1,4 +1,5 @@
-import { Box, Card, Container, Divider, Drawer, Flex, Grid, Image, Loader, ScrollArea, Stack, Table, Text, Title } from "@mantine/core"
+import { Box, Card, Container, Divider, Drawer, Flex, Grid, Image, Loader, ScrollArea, Stack, Text, Title } from "@mantine/core"
+import { useDisclosure } from "@mantine/hooks"
 import { FC, useEffect, useState } from "react"
 import type { Camera, CameraDetails, SearchTransaction } from "../types.d.ts"
 import AppLayout from "./components/AppLayout"
@@ -6,7 +7,6 @@ import CamerasList from "./components/CamerasList.tsx"
 import DatetimeForm from "./components/DatetimeForm"
 import RecentSearches from "./components/RecentSearches.tsx"
 import { fetchCameraDetails, fetchCameras, fetchGlobalRecentSearches } from "./services/backend/api.ts"
-import { useDisclosure } from "@mantine/hooks"
 
 const recentSearchesLocalStorageKey = 'sg-traffic-weather.my-recent-searches'
 
