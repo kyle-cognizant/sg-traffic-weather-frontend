@@ -4,7 +4,7 @@ import type { Camera } from "../../types.d.ts"
 
 type Props = {
   camera: Camera
-  onClick?: MouseEventHandler<HTMLButtonElement>
+  onClick?: (camera: Camera) => void
 }
 
 const CamerasListItem: FC<Props> = ({
@@ -22,9 +22,15 @@ const CamerasListItem: FC<Props> = ({
 
   const { height, width } = image_metadata
   const { latitude, longitude } = location
+
+  const handleClick = () => {
+    if (typeof onClick === 'function') {
+      onClick(camera)
+    }
+  }
   
   return (
-    <Box onClick={onClick} component="button" w="100%" className="cameras-list-item hover-opacity pressable block" miw={280}>
+    <Box onClick={handleClick} component="button" w="100%" className="cameras-list-item hover-opacity pressable block" miw={280}>
       <Card withBorder shadow="xs" key={camera_id} radius="md" p={0} component="article">
         <Grid gutter="sm">
           <Grid.Col span={{ base: 3 }} miw={120}>

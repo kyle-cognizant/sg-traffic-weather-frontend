@@ -1,4 +1,4 @@
-import { Camera } from "../../../types";
+import { Camera, CameraDetails, SearchTransaction } from "../../../types";
 
 const fetchCameras = async (timestamp: number): Promise<Camera[] | undefined> => {
   try {
@@ -12,7 +12,7 @@ const fetchCameras = async (timestamp: number): Promise<Camera[] | undefined> =>
   }
 }
 
-const fetchCameraDetails = async (timestamp: number, cameraId: string): Promise<Camera[] | undefined> => {
+const fetchCameraDetails = async (timestamp: number, cameraId: string): Promise<CameraDetails | undefined> => {
   try {
     const response = await fetch(`http://localhost:3000/cameras/${cameraId}?timestamp=${timestamp}`)
     if (response.status !== 200) throw new Error(response.statusText);
@@ -24,7 +24,19 @@ const fetchCameraDetails = async (timestamp: number, cameraId: string): Promise<
   }
 }
 
+const fetchGlobalRecentSearches = async (): Promise<SearchTransaction[] | undefined> => {
+  try {
+    const response = await fetch(`http://localhost:3000/reports/recent`)
+    if (response.status !== 200) throw new Error(response.statusText);
+    const data = await response.json()
+    return data
+  } catch (error) {
+    console.error(error)
+    throw new Error('FAILED_TO_FETCH_GLOBAL_RECENT_SEARCHES')
+  }
+}
+
 export {
-  fetchCameraDetails, fetchCameras
+  fetchCameraDetails, fetchCameras, fetchGlobalRecentSearches
 };
 
