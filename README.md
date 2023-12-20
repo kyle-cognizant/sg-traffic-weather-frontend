@@ -7,6 +7,22 @@
 
 Frontend client for [SG Traffic + Weather Backend](https://github.com/kyle-cognizant/sg-traffic-weather-backend).
 
+## Installation
+
+```bash
+$ npm install
+```
+
+## Running the app
+
+```bash
+# In development
+$ npm run dev
+
+# In production mode
+$ npm run build && npm run preview
+```
+
 ## Notes
 
 ### Architecture & Design
