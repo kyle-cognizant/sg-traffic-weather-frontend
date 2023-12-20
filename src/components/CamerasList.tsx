@@ -1,4 +1,4 @@
-import { Card, Container, Stack, Text } from "@mantine/core"
+import { Box, Card, Container, Grid, Stack, Text } from "@mantine/core"
 import { FC } from "react"
 import type { Camera } from "../../types.d.ts"
 import CamerasListItem from "./CamerasListItem.tsx"
@@ -14,26 +14,26 @@ const CamerasList: FC<Props> = ({
     <>
       {
         cameras.length === 0 ? (
-          <Container size="sm" mt="lg" p={0}>
+          <Container size="sm">
             <Card withBorder padding="xl" className="text-center" radius="xl">
               <Text size="xl">📸</Text>
               <Text c="dimmed" size="xl">
-                Select a date and time to view traffic cameras
+                Select a date and time to view Traffic Cameras
               </Text>
             </Card>
           </Container>
         ) : (
-          <Card withBorder radius={0} bg="gray.1" mt="lg" p="sm">
-            <Container size="sm" p={0}>
-              <Stack component="ul" gap="xs">
+            <Container size="sm">
+              <Grid component="ul" gutter="xs">
                 {cameras.map(camera =>(
-                  <li>
+                  <Grid.Col span={{ base: 12, xs: 6}} component="li">
+                    <Box maw={360} mx="auto">
                     <CamerasListItem camera={camera} />
-                  </li>
+                    </Box>
+                  </Grid.Col>
                 ))}
-              </Stack>
+              </Grid>
             </Container>
-          </Card>
         )
       }
     </>

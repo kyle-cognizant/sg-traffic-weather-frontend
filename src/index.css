@@ -67,3 +67,7 @@ li {
   filter: grayscale(0);
   transform: scale(1.05);
 }
+
+.mantine-Container-root {
+  width: 100%;
+}

@@ -28,8 +28,9 @@ const CamerasListItem: FC<Props> = ({
       <Card withBorder shadow="xs" key={camera_id} radius="md" p={0} component="article">
         <Grid gutter="sm">
           <Grid.Col span={{ base: 3 }} miw={120}>
-            <Box style={{overflow: 'hidden' }}>
+            <Box style={{overflow: 'hidden' }} bg="gray.3">
             <Image
+              loading="lazy"
               className="grayscale transition"
               src={image}
               width={width}
@@ -40,7 +41,7 @@ const CamerasListItem: FC<Props> = ({
           </Grid.Col>
           <Grid.Col span={{ base: 'auto' }}>
             <Box p="xs">
-              <Flex justify="space-between" mb={4} component="header" gap="sm">
+              <Flex justify="space-between" component="header" gap="sm">
                 <Title order={1} size="h6">{area_name}</Title>
                 <Text c="dimmed" size="xs">#{camera_id}</Text>
               </Flex>

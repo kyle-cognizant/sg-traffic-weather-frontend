@@ -1,4 +1,4 @@
-import { Container } from "@mantine/core"
+import { Box, Container } from "@mantine/core"
 import { FC, useState } from "react"
 import type { Camera } from "../types.d.ts"
 import AppLayout from "./components/AppLayout"
@@ -31,7 +31,9 @@ const App: FC = () => {
           <DatetimeForm onSubmit={onSearch} />
         </Container>
 
-        <CamerasList cameras={cameras} />
+        <Box mt="lg">
+          <CamerasList cameras={cameras} />
+        </Box>
       </Container>
     </AppLayout>
   )
