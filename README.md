@@ -15,6 +15,8 @@ $ npm install
 
 ## Running the app
 
+First ensure that [the backend](https://github.com/kyle-cognizant/sg-traffic-weather-backend) is running at localhost:3000.
+
 ```bash
 # In development
 $ npm run dev
@@ -22,6 +24,8 @@ $ npm run dev
 # In production mode
 $ npm run build && npm run preview
 ```
+
+Open browser [http://localhost:5173/](http://localhost:5173/)
 
 ## Notes
 
@@ -36,3 +40,4 @@ $ npm run build && npm run preview
 - Use react-query to abstract away state, logic, loading, etc for data fetching.
 - Show recent searches in real-time by subscribing to Server-Sent Events from our backend.
 - Add sorting and filtering
+- Move stuff to .env
