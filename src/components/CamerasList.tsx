@@ -23,7 +23,7 @@ const CamerasList: FC<Props> = ({
             </Card>
           </Container>
         ) : (
-          <Card withBorder radius="xl" bg="gray.1" mt="lg">
+          <Card withBorder radius={0} bg="gray.1" mt="lg" p="sm">
             <Container size="sm" p={0}>
               <Stack component="ul" gap="xs">
                 {cameras.map(camera =>(

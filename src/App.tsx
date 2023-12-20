@@ -26,7 +26,7 @@ const App: FC = () => {
 
   return (
     <AppLayout>
-      <Container fluid p="md" pt={0}>
+      <Container fluid p={0}>
         <Container size={320} p={0}>
           <DatetimeForm onSubmit={onSearch} />
         </Container>

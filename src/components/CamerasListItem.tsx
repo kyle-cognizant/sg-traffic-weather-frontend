@@ -24,10 +24,10 @@ const CamerasListItem: FC<Props> = ({
   const { latitude, longitude } = location
   
   return (
-    <Box onClick={onClick} component="button" w="100%" className="cameras-list-item hover-opacity pressable">
+    <Box onClick={onClick} component="button" w="100%" className="cameras-list-item hover-opacity pressable block" miw={280}>
       <Card withBorder shadow="xs" key={camera_id} radius="md" p={0} component="article">
         <Grid gutter="sm">
-          <Grid.Col span={{ xs: 3 }} miw={180}>
+          <Grid.Col span={{ base: 3 }} miw={120}>
             <Box style={{overflow: 'hidden' }}>
             <Image
               className="grayscale transition"
@@ -38,13 +38,13 @@ const CamerasListItem: FC<Props> = ({
             />
             </Box>
           </Grid.Col>
-          <Grid.Col span={{ xs: 'auto' }}>
-            <Box p="md">
+          <Grid.Col span={{ base: 'auto' }}>
+            <Box p="xs">
               <Flex justify="space-between" mb={4} component="header" gap="sm">
-                <Title order={1} size="h5">{area_name}</Title>
-                <Text c="dimmed" size="sm">#{camera_id}</Text>
+                <Title order={1} size="h6">{area_name}</Title>
+                <Text c="dimmed" size="xs">#{camera_id}</Text>
               </Flex>
-              <Flex gap={4}>
+              <Flex gap={4} ml={-14}>
               <Text size="xs" className="grayscale">
               📍 
               </Text>
